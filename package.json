@@ -1,7 +1,7 @@
 {
   "name": "@li-langverse/li-books-studio",
   "version": "0.1.0",
-  "description": "li-books chat-first UI — Next.js studio for agentic German bookkeeping",
+  "description": "klaut.pro portal UI — Books module + shared shell (li-books-studio)",
   "type": "module",
   "license": "GPL-3.0-or-later",
   "scripts": {

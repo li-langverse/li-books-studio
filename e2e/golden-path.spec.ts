@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 test("golden path: chat → upload → clarify → post", async ({ page }) => {
-  await page.goto("/");
+  await page.goto("/books");
   await expect(page.getByTestId("chat-home")).toBeVisible();
 
   await page.getByTestId("chat-input").fill("Neuer Beleg von REWE");

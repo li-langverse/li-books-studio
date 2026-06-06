@@ -1,5 +1,5 @@
-import { ChatShell } from "./ChatShell";
+import { redirect } from "next/navigation";
 
 export default function HomePage() {
-  return <ChatShell />;
+  redirect("/books");
 }
