@@ -1,6 +1,20 @@
 "use client";
 
 import { useState } from "react";
+import {
+  AgentStatusStrip,
+  Alert,
+  Badge,
+  Button,
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+  Input,
+  PageHeader,
+  Select,
+  type AgentStatus,
+} from "@/components/ui";
 
 type Message = { role: "user" | "assistant"; content: string };
 
@@ -10,27 +24,47 @@ export function ChatShell() {
   const [taxYear, setTaxYear] = useState(2024);
   const [unlocked, setUnlocked] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { role: "assistant", content: "Willkommen bei li-books. Wähle das Steuerjahr, lade Belege hoch oder stelle eine Frage." },
+    {
+      role: "assistant",
+      content:
+        "Willkommen bei li-books. Wähle das Steuerjahr, lade Belege hoch oder stelle eine Frage.",
+    },
   ]);
   const [input, setInput] = useState("");
   const [clarifications, setClarifications] = useState(0);
   const [posted, setPosted] = useState(false);
+  const [running, setRunning] = useState(false);
+
+  function agentStatus(): AgentStatus {
+    if (posted) return "done";
+    if (clarifications > 0) return "clarify";
+    if (running) return "running";
+    return "idle";
+  }
 
   function send() {
     if (!input.trim()) return;
-    setMessages((m) => [...m, { role: "user", content: input.trim() }]);
+    const text = input.trim();
     setInput("");
-    setMessages((m) => [
-      ...m,
-      { role: "assistant", content: `[${taxYear}] Ich prüfe den Beleg und die Steuerkategorie…` },
-    ]);
+    setRunning(true);
+    setMessages((m) => [...m, { role: "user", content: text }]);
+    window.setTimeout(() => {
+      setMessages((m) => [
+        ...m,
+        { role: "assistant", content: `[${taxYear}] Ich prüfe den Beleg und die Steuerkategorie…` },
+      ]);
+      setRunning(false);
+    }, 400);
   }
 
   function onUpload() {
     setClarifications(1);
     setMessages((m) => [
       ...m,
-      { role: "assistant", content: `[${taxYear}] Beleg erkannt (Entwurf). Bitte Kategorie bestätigen: Bewirtung (70%)?` },
+      {
+        role: "assistant",
+        content: `[${taxYear}] Beleg erkannt (Entwurf). Bitte Kategorie bestätigen: Bewirtung (70%)?`,
+      },
     ]);
   }
 
@@ -43,7 +77,10 @@ export function ChatShell() {
     if (!unlocked) {
       setMessages((m) => [
         ...m,
-        { role: "assistant", content: `${taxYear} ist gesperrt — einmaliges Freischalten pro Steuerjahr erforderlich (Scan/Klären weiter möglich).` },
+        {
+          role: "assistant",
+          content: `${taxYear} ist gesperrt — einmaliges Freischalten pro Steuerjahr erforderlich (Scan/Klären weiter möglich).`,
+        },
       ]);
       return;
     }
@@ -51,14 +88,27 @@ export function ChatShell() {
     setMessages((m) => [...m, { role: "assistant", content: "Gebucht mit Gesetzesverweis §4 Abs. 5 EStG." }]);
   }
 
+  const readyToPost =
+    !posted &&
+    clarifications === 0 &&
+    messages.some((m) => m.content.includes("Bereit zum Buchen"));
+
   return (
-    <main data-testid="chat-home" style={{ maxWidth: 720, margin: "0 auto", padding: 24 }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <h1>Books</h1>
-      </div>
-      <div style={{ display: "flex", gap: 12, alignItems: "center", marginBottom: 12 }}>
-        <label htmlFor="tax-year">Steuerjahr</label>
-        <select
+    <main data-testid="chat-home" className="mx-auto max-w-3xl px-6 py-8">
+      <PageHeader
+        title="Books"
+        description="Agentische Buchhaltung — Belege scannen, kategorisieren und buchen."
+      />
+
+      <AgentStatusStrip
+        status={agentStatus()}
+        context={`Steuerjahr ${taxYear}`}
+        className="mb-6"
+      />
+
+      <div className="mb-6 flex flex-wrap items-end gap-4">
+        <Select
+          label="Steuerjahr"
           id="tax-year"
           data-testid="tax-year-picker"
           value={taxYear}
@@ -67,64 +117,103 @@ export function ChatShell() {
             setPosted(false);
             setUnlocked(false);
           }}
+          className="min-w-[120px]"
         >
           {TAX_YEARS.map((y) => (
             <option key={y} value={y}>
               {y}
             </option>
           ))}
-        </select>
-        {!unlocked && (
-          <button
-            data-testid="unlock-year"
-            type="button"
-            onClick={() => setUnlocked(true)}
-          >
+        </Select>
+
+        {!unlocked ? (
+          <Button data-testid="unlock-year" type="button" variant="secondary" onClick={() => setUnlocked(true)}>
             {taxYear} freischalten (Stub)
-          </button>
+          </Button>
+        ) : (
+          <Badge variant="success" data-testid="year-unlocked">
+            {taxYear} freigeschaltet ✓
+          </Badge>
         )}
-        {unlocked && <span data-testid="year-unlocked">{taxYear} freigeschaltet ✓</span>}
       </div>
-      <div data-testid="chat-thread" style={{ minHeight: 240, border: "1px solid #cbd5e1", borderRadius: 8, padding: 12 }}>
-        {messages.map((m, i) => (
-          <p key={i} data-testid={`msg-${m.role}`}>
-            <strong>{m.role}:</strong> {m.content}
-          </p>
-        ))}
-      </div>
-      <div style={{ marginTop: 12, display: "flex", gap: 8 }}>
-        <input
+
+      <Card className="mb-4">
+        <div
+          data-testid="chat-thread"
+          className="flex min-h-60 flex-col gap-3"
+          role="log"
+          aria-live="polite"
+          aria-label="Chat-Verlauf"
+        >
+          {messages.map((m, i) => (
+            <div
+              key={i}
+              data-testid={`msg-${m.role}`}
+              className={
+                m.role === "user"
+                  ? "ml-8 rounded-[var(--klaut-radius-md)] bg-[var(--klaut-teal-50)] px-4 py-2.5 text-sm"
+                  : "mr-8 rounded-[var(--klaut-radius-md)] bg-[var(--klaut-slate-100)] px-4 py-2.5 text-sm"
+              }
+            >
+              <span className="mb-0.5 block text-xs font-semibold uppercase tracking-wide text-[var(--klaut-text-muted)]">
+                {m.role === "user" ? "Du" : "Agent"}
+              </span>
+              {m.content}
+            </div>
+          ))}
+        </div>
+      </Card>
+
+      <div className="mb-4 flex gap-2">
+        <Input
           data-testid="chat-input"
           value={input}
           onChange={(e) => setInput(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && send()}
           placeholder="Nachricht…"
-          style={{ flex: 1, padding: 8 }}
+          className="flex-1"
+          aria-label="Chat-Nachricht"
         />
-        <button data-testid="chat-send" type="button" onClick={send}>
+        <Button data-testid="chat-send" type="button" onClick={send} disabled={running || !input.trim()}>
           Senden
-        </button>
+        </Button>
       </div>
-      <div
+
+      <button
+        type="button"
         data-testid="upload-zone"
         onClick={onUpload}
-        style={{ marginTop: 16, padding: 24, border: "2px dashed #94a3b8", textAlign: "center", cursor: "pointer" }}
+        className="mb-4 w-full rounded-[var(--klaut-radius-lg)] border-2 border-dashed border-[var(--klaut-slate-300)] bg-white px-6 py-8 text-center text-sm text-[var(--klaut-text-muted)] transition-colors hover:border-[var(--klaut-teal-600)] hover:bg-[var(--klaut-teal-50)] hover:text-[var(--klaut-teal-900)]"
       >
-        Beleg hier ablegen (Klick zum Test-Upload) — Jahr {taxYear}
-      </div>
+        <span className="block text-base font-medium text-[var(--klaut-text)]">Beleg hochladen</span>
+        Klick zum Test-Upload — Jahr {taxYear}
+      </button>
+
       {clarifications > 0 && (
-        <div data-testid="clarify-card" style={{ marginTop: 16, padding: 12, background: "#fef3c7", borderRadius: 8 }}>
-          <p>Offene Rückfragen: {clarifications}</p>
-          <button data-testid="clarify-confirm" type="button" onClick={confirmClarify}>
+        <Card data-testid="clarify-card" className="mb-4 border-amber-200 bg-amber-50">
+          <CardHeader>
+            <CardTitle>Rückfrage vom Agent</CardTitle>
+            <CardDescription>
+              Offene Rückfragen: {clarifications} — Kategorie bestätigen, um fortzufahren.
+            </CardDescription>
+          </CardHeader>
+          <Button data-testid="clarify-confirm" type="button" onClick={confirmClarify}>
             Bewirtung bestätigen
-          </button>
-        </div>
+          </Button>
+        </Card>
       )}
-      {!posted && clarifications === 0 && messages.some((m) => m.content.includes("Bereit zum Buchen")) && (
-        <button data-testid="post-confirm" type="button" onClick={confirmPost} style={{ marginTop: 12 }}>
+
+      {readyToPost && (
+        <Button data-testid="post-confirm" type="button" onClick={confirmPost} className="mb-4">
           Buchen bestätigen
-        </button>
+        </Button>
       )}
-      {posted && <p data-testid="posted-badge">Gebucht ✓</p>}
+
+      {posted && (
+        <Alert variant="success" title="Gebucht">
+          <span data-testid="posted-badge">Gebucht ✓ — mit Gesetzesverweis §4 Abs. 5 EStG.</span>
+        </Alert>
+      )}
     </main>
   );
 }

@@ -1,10 +1,26 @@
-:root {
-  font-family: system-ui, sans-serif;
-  color: #0f172a;
-  background: #f8fafc;
+@import "tailwindcss";
+@import "../design/tokens.css";
+
+@theme inline {
+  --color-klaut-primary: var(--klaut-primary);
+  --color-klaut-teal-800: var(--klaut-teal-800);
+  --color-klaut-slate-900: var(--klaut-slate-900);
+  --font-sans: var(--klaut-font-sans);
 }
 
 body {
   margin: 0;
   min-height: 100vh;
+  font-family: var(--klaut-font-sans);
+  color: var(--klaut-text);
+  background: var(--klaut-bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
 }

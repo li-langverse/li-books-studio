@@ -10,15 +10,19 @@
     "start": "next start -p 3010",
     "test": "npm run test:unit && npm run test:e2e",
     "test:unit": "node --test src/lib/*.test.js",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "demo:video": "cd demo-video && npx hyperframes render . -o renders/klaut-portal-demo.mp4",
+    "demo:snapshots": "cd demo-video && npx hyperframes snapshot . --frame 120 --output renders/books-scene.png && npx hyperframes snapshot . --frame 360 --output renders/secrets-scene.png"
   },
   "engines": {
     "node": ">=22"
   },
   "dependencies": {
+    "@tailwindcss/postcss": "^4.3.0",
     "next": "^15.3.0",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "tailwindcss": "^4.3.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.52.0",

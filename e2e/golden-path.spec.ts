@@ -14,6 +14,7 @@ test("golden path: chat → upload → clarify → post", async ({ page }) => {
   await page.getByTestId("clarify-confirm").click();
   await expect(page.getByTestId("post-confirm")).toBeVisible();
 
+  await page.getByTestId("unlock-year").click();
   await page.getByTestId("post-confirm").click();
   await expect(page.getByTestId("posted-badge")).toContainText("Gebucht");
 });
