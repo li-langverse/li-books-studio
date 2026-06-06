@@ -1,0 +1,18 @@
+{
+  "name": "@li-langverse/li-books-studio",
+  "version": "0.1.0",
+  "description": "li-books chat-first UI — Next.js studio for agentic German bookkeeping",
+  "type": "module",
+  "license": "GPL-3.0-or-later",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && node --test dist/**/*.test.js"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.0"
+  }
+}
