@@ -53,7 +53,9 @@ export function ChatShell() {
 
   return (
     <main data-testid="chat-home" style={{ maxWidth: 720, margin: "0 auto", padding: 24 }}>
-      <h1>li-books</h1>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <h1>Books</h1>
+      </div>
       <div style={{ display: "flex", gap: 12, alignItems: "center", marginBottom: 12 }}>
         <label htmlFor="tax-year">Steuerjahr</label>
         <select
