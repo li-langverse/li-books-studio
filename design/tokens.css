@@ -1,72 +1,35 @@
 /**
- * klaut.pro design tokens — trustworthy agentic SaaS for German bookkeeping + secrets.
- * WCAG AA contrast on primary surfaces. Not Majico orange.
+ * klaut.pro design tokens — synced from Majico staging.
+ * Source: get_design_tokens / get_guidelines via MCP REST API.
  */
 :root {
-  /* Brand — deep teal */
-  --klaut-teal-950: #042f2f;
-  --klaut-teal-900: #0a4f52;
-  --klaut-teal-800: #0d7377;
-  --klaut-teal-700: #0f8a8f;
-  --klaut-teal-600: #14a3a8;
-  --klaut-teal-500: #2bb8bd;
-  --klaut-teal-100: #ccfbf1;
-  --klaut-teal-50: #f0fdfa;
-
-  /* Slate neutrals */
-  --klaut-slate-950: #020617;
-  --klaut-slate-900: #0f172a;
-  --klaut-slate-800: #1e293b;
-  --klaut-slate-700: #334155;
-  --klaut-slate-600: #475569;
-  --klaut-slate-500: #64748b;
-  --klaut-slate-400: #94a3b8;
-  --klaut-slate-300: #cbd5e1;
-  --klaut-slate-200: #e2e8f0;
-  --klaut-slate-100: #f1f5f9;
-  --klaut-slate-50: #f8fafc;
-
-  /* Semantic */
-  --klaut-bg: var(--klaut-slate-50);
+  --klaut-bg: #f8fafc;
   --klaut-bg-elevated: #ffffff;
-  --klaut-bg-sidebar: var(--klaut-slate-900);
-  --klaut-text: var(--klaut-slate-900);
-  --klaut-text-muted: var(--klaut-slate-600);
-  --klaut-text-on-dark: var(--klaut-slate-100);
-  --klaut-text-on-dark-muted: var(--klaut-slate-400);
-  --klaut-border: var(--klaut-slate-200);
-  --klaut-border-strong: var(--klaut-slate-300);
-  --klaut-primary: var(--klaut-teal-800);
-  --klaut-primary-hover: var(--klaut-teal-900);
-  --klaut-primary-subtle: var(--klaut-teal-50);
-  --klaut-ring: var(--klaut-teal-600);
+  --klaut-bg-muted: #f1f5f9;
+  --klaut-bg-sidebar: #0f172a;
+  --klaut-text: #0f172a;
+  --klaut-text-muted: #475569;
+  --klaut-text-on-dark: #f8fafc;
+  --klaut-text-on-dark-muted: #94a3b8;
+  --klaut-border: #e2e8f0;
+  --klaut-primary: #0d7377;
+  --klaut-primary-hover: #0a4f52;
+  --klaut-primary-on: #ffffff;
+  --klaut-primary-subtle: color-mix(in oklch, #0d7377 12%, #f8fafc);
+  --klaut-ring: #0d7377;
+  --klaut-font-heading: "Inter", system-ui, sans-serif;
+  --klaut-font-body: "Inter", system-ui, sans-serif;
+}
 
-  /* Agent status */
-  --klaut-agent-idle: var(--klaut-slate-500);
-  --klaut-agent-running: #2563eb;
-  --klaut-agent-clarify: #d97706;
-  --klaut-agent-done: #059669;
-  --klaut-agent-error: #dc2626;
-
-  /* Trust / secrets */
-  --klaut-trust-bg: var(--klaut-teal-50);
-  --klaut-trust-border: var(--klaut-teal-100);
-  --klaut-trust-icon: var(--klaut-teal-800);
-
-  /* Radii & shadows */
-  --klaut-radius-sm: 0.375rem;
-  --klaut-radius-md: 0.5rem;
-  --klaut-radius-lg: 0.75rem;
-  --klaut-shadow-sm: 0 1px 2px rgb(15 23 42 / 0.05);
-  --klaut-shadow-md: 0 4px 12px rgb(15 23 42 / 0.08);
-  --klaut-shadow-lg: 0 8px 24px rgb(15 23 42 / 0.12);
-
-  /* Typography scale */
-  --klaut-font-sans: var(--font-inter, "Inter", system-ui, sans-serif);
-  --klaut-text-xs: 0.75rem;
-  --klaut-text-sm: 0.875rem;
-  --klaut-text-base: 1rem;
-  --klaut-text-lg: 1.125rem;
-  --klaut-text-xl: 1.25rem;
-  --klaut-text-2xl: 1.5rem;
+@media (prefers-color-scheme: dark) {
+  :root {
+    --klaut-bg: #0f172a;
+    --klaut-bg-muted: #1e293b;
+    --klaut-text: #f8fafc;
+    --klaut-text-muted: #94a3b8;
+    --klaut-border: #334155;
+    --klaut-primary: #14a3a8;
+    --klaut-primary-hover: #2bb8bd;
+    --klaut-primary-on: #0f172a;
+  }
 }

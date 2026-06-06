@@ -1,64 +1,37 @@
-# klaut.pro Portal — Design System
+# Design System: klaut.pro
+**Project ID:** 356e7acc-633d-4029-96a0-98e8a75fc3e5
 
-**Brand:** Trustworthy agentic SaaS for German bookkeeping and secrets management.  
-**Identity:** Deep teal + slate neutrals, crisp Inter sans-serif. **Not** Majico orange (#FF7800).  
-**Accessibility:** WCAG AA contrast on primary text and interactive elements.
+## 1. Visual Theme & Atmosphere
+klaut.pro expresses a balanced and practical personality with a Sage-led identity supported by Everyman.
 
-> Tokens sourced manually (Majico MCP credentials unavailable). See `design/tokens.css`.
+Narrative anchor: klaut.pro is a trustworthy agentic SaaS for German bookkeeping and secrets management.
 
-## Color palette
+## 2. Color Palette & Roles
+- **Background (#f8fafc)**: Base canvas and long-form reading areas.
+- **Background Muted (#f1f5f9)**: Subtle section fills and low-emphasis surfaces.
+- **Primary Text (#0f172a)**: Default text color for headings and body content.
+- **Secondary Text (#475569)**: Supportive labels, metadata, and helper copy.
+- **Accent (#0d7377)**: Primary actions, links, highlighted states, and key emphasis.
+- **Accent On (#ffffff)**: Foreground text/icon color used on top of accent surfaces.
+- **Accent Muted (#0a4f52)**: Hover, pressed, and secondary accent interactions.
+- **Border (#e2e8f0)**: Strokes, dividers, and input outlines.
 
-| Token | Hex | Use |
-| --- | --- | --- |
-| `--klaut-teal-800` | `#0d7377` | Primary actions, brand accent |
-| `--klaut-teal-900` | `#0a4f52` | Primary hover, sidebar highlights |
-| `--klaut-slate-900` | `#0f172a` | Sidebar background |
-| `--klaut-slate-50` | `#f8fafc` | Page background |
-| `--klaut-agent-running` | `#2563eb` | Agent actively processing |
-| `--klaut-agent-clarify` | `#d97706` | Agent blocked — needs user input |
-| `--klaut-agent-done` | `#059669` | Task completed |
+Dark-theme anchor colors include Background (#0f172a), Text (#f8fafc), and Accent (#14a3a8).
 
-## Typography
+## 3. Typography Rules
+Headlines use **Inter** to create a recognizable top-level voice and strong hierarchy.
+Body copy uses **Inter** for readability across long-form and UI microcopy.
+Use heavier weight for section titles and medium/regular weights for supporting copy to preserve contrast.
 
-- **Font:** Inter via `next/font/google`
-- **Headings:** semibold, slate-900
-- **Body:** regular, slate-700/600 for secondary copy
-- **Monospace:** reserved for JWT dev fields (future)
+## 4. Component Stylings
+* **Buttons:** Primary buttons are accent-led (background #0d7377, foreground #ffffff) with clearly readable contrast.
+* **Cards/Containers:** Surfaces use #f1f5f9 with subtle border separation (#e2e8f0) to maintain structure without visual noise.
+* **Inputs/Forms:** Inputs use quiet borders, clear focus states in accent tones, and high-legibility text treatment.
 
-## Layout
+## 5. Layout Principles
+Favor generous spacing between sections, keep core actions visually prominent, and maintain consistent alignment in multi-column and stacked layouts.
+Use muted backgrounds for grouping and reserve accent intensity for actions, links, and high-priority information.
 
-- **AppShell:** Fixed 240px sidebar (dark slate) + fluid main content area
-- **Content max-width:** 720px for chat, 640px for secrets/settings
-- **Spacing:** 4px base grid (Tailwind default)
+---
 
-## Components (`components/ui/`)
-
-| Component | Purpose |
-| --- | --- |
-| `Button` | Primary, secondary, ghost, danger variants |
-| `Input` | Text/password with label and error slot |
-| `Select` | Native select styled to match Input |
-| `Card` | Elevated surface for secrets forms and clarify panels |
-| `Badge` | Status chips (configured, posted, agent state) |
-| `Alert` | Trust messaging and status feedback |
-| `PageHeader` | Title + description for each portal section |
-| `AgentStatusStrip` | Idle / running / clarify agent chrome |
-
-## Agentic UX (studio-agentic-ux checklist)
-
-- [x] **Task state visible:** AgentStatusStrip shows idle → running → clarify → done
-- [x] **Progress:** Chat thread streams assistant replies; no silent long runs in stub
-- [x] **Errors:** Locked-year message is actionable (unlock button)
-- [x] **Context:** Tax year picker + agent status in header region
-- [x] **Clarify affordance:** Yellow clarify card with explicit confirm action
-- [ ] Cancel (future — no long-running agent jobs in MVP stub)
-
-## Secrets trust patterns
-
-- Vault copy explains one account per user, values never displayed
-- Password inputs only; configured state shown as badge not value
-- JWT dev field clearly labeled as development-only
-
-## Test IDs (preserved)
-
-`klaut-portal`, `nav-books`, `nav-secrets`, `nav-settings`, `chat-home`, `settings-secrets`
+_Synced from Majico project `356e7acc-633d-4029-96a0-98e8a75fc3e5` (klaut.pro) via `scripts/sync-majico-brand.mjs`._
