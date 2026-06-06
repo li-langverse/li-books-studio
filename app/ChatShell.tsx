@@ -4,9 +4,13 @@ import { useState } from "react";
 
 type Message = { role: "user" | "assistant"; content: string };
 
+const TAX_YEARS = [2023, 2024, 2025];
+
 export function ChatShell() {
+  const [taxYear, setTaxYear] = useState(2024);
+  const [unlocked, setUnlocked] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { role: "assistant", content: "Willkommen bei li-books. Lade einen Beleg hoch oder stelle eine Frage." },
+    { role: "assistant", content: "Willkommen bei li-books. Wähle das Steuerjahr, lade Belege hoch oder stelle eine Frage." },
   ]);
   const [input, setInput] = useState("");
   const [clarifications, setClarifications] = useState(0);
@@ -18,7 +22,7 @@ export function ChatShell() {
     setInput("");
     setMessages((m) => [
       ...m,
-      { role: "assistant", content: "Ich prüfe den Beleg und die Steuerkategorie…" },
+      { role: "assistant", content: `[${taxYear}] Ich prüfe den Beleg und die Steuerkategorie…` },
     ]);
   }
 
@@ -26,7 +30,7 @@ export function ChatShell() {
     setClarifications(1);
     setMessages((m) => [
       ...m,
-      { role: "assistant", content: "Beleg erkannt. Bitte Kategorie bestätigen: Bewirtung (70%)?" },
+      { role: "assistant", content: `[${taxYear}] Beleg erkannt (Entwurf). Bitte Kategorie bestätigen: Bewirtung (70%)?` },
     ]);
   }
 
@@ -36,6 +40,13 @@ export function ChatShell() {
   }
 
   function confirmPost() {
+    if (!unlocked) {
+      setMessages((m) => [
+        ...m,
+        { role: "assistant", content: `${taxYear} ist gesperrt — einmaliges Freischalten pro Steuerjahr erforderlich (Scan/Klären weiter möglich).` },
+      ]);
+      return;
+    }
     setPosted(true);
     setMessages((m) => [...m, { role: "assistant", content: "Gebucht mit Gesetzesverweis §4 Abs. 5 EStG." }]);
   }
@@ -43,6 +54,35 @@ export function ChatShell() {
   return (
     <main data-testid="chat-home" style={{ maxWidth: 720, margin: "0 auto", padding: 24 }}>
       <h1>li-books</h1>
+      <div style={{ display: "flex", gap: 12, alignItems: "center", marginBottom: 12 }}>
+        <label htmlFor="tax-year">Steuerjahr</label>
+        <select
+          id="tax-year"
+          data-testid="tax-year-picker"
+          value={taxYear}
+          onChange={(e) => {
+            setTaxYear(Number(e.target.value));
+            setPosted(false);
+            setUnlocked(false);
+          }}
+        >
+          {TAX_YEARS.map((y) => (
+            <option key={y} value={y}>
+              {y}
+            </option>
+          ))}
+        </select>
+        {!unlocked && (
+          <button
+            data-testid="unlock-year"
+            type="button"
+            onClick={() => setUnlocked(true)}
+          >
+            {taxYear} freischalten (Stub)
+          </button>
+        )}
+        {unlocked && <span data-testid="year-unlocked">{taxYear} freigeschaltet ✓</span>}
+      </div>
       <div data-testid="chat-thread" style={{ minHeight: 240, border: "1px solid #cbd5e1", borderRadius: 8, padding: 12 }}>
         {messages.map((m, i) => (
           <p key={i} data-testid={`msg-${m.role}`}>
@@ -67,7 +107,7 @@ export function ChatShell() {
         onClick={onUpload}
         style={{ marginTop: 16, padding: 24, border: "2px dashed #94a3b8", textAlign: "center", cursor: "pointer" }}
       >
-        Beleg hier ablegen (Klick zum Test-Upload)
+        Beleg hier ablegen (Klick zum Test-Upload) — Jahr {taxYear}
       </div>
       {clarifications > 0 && (
         <div data-testid="clarify-card" style={{ marginTop: 16, padding: 12, background: "#fef3c7", borderRadius: 8 }}>
