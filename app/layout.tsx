@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
@@ -9,8 +9,16 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "klaut.pro",
-  description: "Unified portal — Books, Secrets, and more",
+  title: {
+    default: "klaut.pro",
+    template: "%s · klaut.pro",
+  },
+  description:
+    "Trustworthy agentic SaaS — German bookkeeping, secrets vault, and unified portal.",
+};
+
+export const viewport: Viewport = {
+  themeColor: "#0d7377",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

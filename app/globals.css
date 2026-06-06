@@ -3,18 +3,22 @@
 
 @theme inline {
   --color-klaut-primary: var(--klaut-primary);
+  --color-klaut-primary-hover: var(--klaut-primary-hover);
   --color-klaut-teal-800: var(--klaut-teal-800);
+  --color-klaut-teal-900: var(--klaut-teal-900);
   --color-klaut-slate-900: var(--klaut-slate-900);
+  --color-klaut-slate-800: var(--klaut-slate-800);
   --font-sans: var(--klaut-font-sans);
 }
 
 body {
   margin: 0;
   min-height: 100vh;
-  font-family: var(--klaut-font-sans);
+  font-family: var(--klaut-font-body);
   color: var(--klaut-text);
   background: var(--klaut-bg);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 * {
@@ -23,4 +27,8 @@ body {
 
 a {
   color: inherit;
+}
+
+::selection {
+  background: color-mix(in oklch, var(--klaut-primary) 25%, transparent);
 }

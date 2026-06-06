@@ -23,7 +23,7 @@ export function Select({
       <select
         id={selectId}
         className={cn(
-          "rounded-[var(--klaut-radius-md)] border border-[var(--klaut-border-strong)] bg-white px-3 py-2 text-sm text-[var(--klaut-text)]",
+          "rounded-[var(--klaut-radius-md)] border border-[var(--klaut-border-strong)] bg-[var(--klaut-bg-elevated)] px-3 py-2 text-sm text-[var(--klaut-text)]",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--klaut-ring)] focus-visible:ring-offset-1",
           className,
         )}

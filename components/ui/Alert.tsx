@@ -3,9 +3,9 @@ import { cn } from "./cn";
 type AlertVariant = "info" | "success" | "warning" | "trust";
 
 const variantClasses: Record<AlertVariant, string> = {
-  info: "border-blue-200 bg-blue-50 text-blue-900",
-  success: "border-emerald-200 bg-emerald-50 text-emerald-900",
-  warning: "border-amber-200 bg-amber-50 text-amber-900",
+  info: "border-[var(--klaut-info-border)] bg-[var(--klaut-info-bg)] text-[var(--klaut-info-text)]",
+  success: "border-[var(--klaut-success-border)] bg-[var(--klaut-success-bg)] text-[var(--klaut-success-text)]",
+  warning: "border-[var(--klaut-warning-border)] bg-[var(--klaut-warning-bg)] text-[var(--klaut-warning-text)]",
   trust: "border-[var(--klaut-trust-border)] bg-[var(--klaut-trust-bg)] text-[var(--klaut-teal-900)]",
 };
 

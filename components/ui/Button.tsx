@@ -5,9 +5,9 @@ type ButtonSize = "sm" | "md";
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    "bg-[var(--klaut-primary)] text-white hover:bg-[var(--klaut-primary-hover)] focus-visible:ring-[var(--klaut-ring)]",
+    "bg-[var(--klaut-primary)] text-[var(--klaut-primary-on)] hover:bg-[var(--klaut-primary-hover)] focus-visible:ring-[var(--klaut-ring)] shadow-[var(--klaut-shadow-sm)]",
   secondary:
-    "bg-white text-[var(--klaut-text)] border border-[var(--klaut-border-strong)] hover:bg-[var(--klaut-slate-100)] focus-visible:ring-[var(--klaut-ring)]",
+    "bg-[var(--klaut-bg-elevated)] text-[var(--klaut-text)] border border-[var(--klaut-border-strong)] hover:bg-[var(--klaut-bg-muted)] focus-visible:ring-[var(--klaut-ring)]",
   ghost:
     "bg-transparent text-[var(--klaut-text-muted)] hover:bg-[var(--klaut-slate-100)] hover:text-[var(--klaut-text)] focus-visible:ring-[var(--klaut-ring)]",
   danger:

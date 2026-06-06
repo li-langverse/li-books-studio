@@ -47,7 +47,7 @@ export function AgentStatusStrip({
   return (
     <div
       className={cn(
-        "flex items-center justify-between gap-3 rounded-[var(--klaut-radius-md)] border border-[var(--klaut-border)] bg-white px-4 py-2.5 shadow-[var(--klaut-shadow-sm)]",
+        "flex items-center justify-between gap-3 rounded-[var(--klaut-radius-md)] border border-[var(--klaut-border)] bg-[var(--klaut-bg-elevated)] px-4 py-2.5 shadow-[var(--klaut-shadow-sm)]",
         className,
       )}
       role="status"

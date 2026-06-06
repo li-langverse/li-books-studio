@@ -2,12 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { KlautLogo } from "@/components/brand/KlautLogo";
+import { NavIcon } from "@/components/brand/NavIcon";
 import { cn } from "@/components/ui/cn";
 
 const NAV = [
-  { href: "/books", label: "Books", testId: "nav-books", icon: "📒" },
-  { href: "/secrets", label: "Secrets", testId: "nav-secrets", icon: "🔐" },
-  { href: "/settings", label: "Settings", testId: "nav-settings", icon: "⚙️" },
+  { href: "/books", label: "Books", testId: "nav-books", icon: "books" as const },
+  { href: "/secrets", label: "Secrets", testId: "nav-secrets", icon: "secrets" as const },
+  { href: "/settings", label: "Settings", testId: "nav-settings", icon: "settings" as const },
 ] as const;
 
 export function PortalShell({ children }: { children: React.ReactNode }) {
@@ -15,23 +17,23 @@ export function PortalShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div data-testid="klaut-portal" className="flex min-h-screen">
-      <aside className="flex w-60 shrink-0 flex-col border-r border-[var(--klaut-slate-800)] bg-[var(--klaut-bg-sidebar)] px-4 py-6">
-        <div className="mb-8 flex items-center gap-2 px-2">
-          <span
-            className="flex h-8 w-8 items-center justify-center rounded-[var(--klaut-radius-md)] bg-[var(--klaut-teal-800)] text-sm font-bold text-white"
-            aria-hidden
-          >
-            k
-          </span>
+      <aside
+        className="flex shrink-0 flex-col border-r border-[var(--klaut-slate-800)] bg-[var(--klaut-bg-sidebar)] px-4 py-6 shadow-[var(--klaut-shadow-sidebar)]"
+        style={{ width: "var(--klaut-sidebar-width)" }}
+      >
+        <Link href="/books" className="mb-8 flex items-center gap-3 rounded-[var(--klaut-radius-md)] px-2 py-1 transition-opacity hover:opacity-90">
+          <KlautLogo size={36} />
           <div>
-            <div className="text-lg font-semibold tracking-tight text-[var(--klaut-text-on-dark)]">
+            <div className="font-[family-name:var(--klaut-font-heading)] text-lg font-semibold tracking-tight text-[var(--klaut-text-on-dark)]">
               klaut.pro
             </div>
-            <div className="text-xs text-[var(--klaut-text-on-dark-muted)]">Agentic Portal</div>
+            <div className="text-xs text-[var(--klaut-text-on-dark-muted)]">
+              Agentic Portal
+            </div>
           </div>
-        </div>
+        </Link>
 
-        <nav className="flex flex-col gap-1" aria-label="Hauptnavigation">
+        <nav className="flex flex-col gap-0.5" aria-label="Hauptnavigation">
           {NAV.map(({ href, label, testId, icon }) => {
             const active = pathname === href || pathname.startsWith(`${href}/`);
             return (
@@ -43,20 +45,23 @@ export function PortalShell({ children }: { children: React.ReactNode }) {
                 className={cn(
                   "flex items-center gap-2.5 rounded-[var(--klaut-radius-md)] px-3 py-2.5 text-sm font-medium transition-colors",
                   active
-                    ? "bg-[var(--klaut-teal-900)] text-white"
+                    ? "bg-[var(--klaut-teal-900)] text-white shadow-sm"
                     : "text-[var(--klaut-text-on-dark-muted)] hover:bg-[var(--klaut-slate-800)] hover:text-[var(--klaut-text-on-dark)]",
                 )}
               >
-                <span aria-hidden>{icon}</span>
+                <NavIcon name={icon} />
                 {label}
               </Link>
             );
           })}
         </nav>
 
-        <p className="mt-auto px-2 pt-8 text-xs text-[var(--klaut-text-on-dark-muted)]">
-          Mail &amp; Search — demnächst
-        </p>
+        <div className="mt-auto space-y-3 px-2 pt-8">
+          <div className="h-px bg-[var(--klaut-slate-800)]" />
+          <p className="text-xs leading-relaxed text-[var(--klaut-text-on-dark-muted)]">
+            Mail &amp; Search — demnächst
+          </p>
+        </div>
       </aside>
 
       <div className="flex min-w-0 flex-1 flex-col bg-[var(--klaut-bg)]">{children}</div>

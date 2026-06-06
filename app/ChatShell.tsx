@@ -183,14 +183,17 @@ export function ChatShell() {
         type="button"
         data-testid="upload-zone"
         onClick={onUpload}
-        className="mb-4 w-full rounded-[var(--klaut-radius-lg)] border-2 border-dashed border-[var(--klaut-slate-300)] bg-white px-6 py-8 text-center text-sm text-[var(--klaut-text-muted)] transition-colors hover:border-[var(--klaut-teal-600)] hover:bg-[var(--klaut-teal-50)] hover:text-[var(--klaut-teal-900)]"
+        className="mb-4 w-full rounded-[var(--klaut-radius-lg)] border-2 border-dashed border-[var(--klaut-border-strong)] bg-[var(--klaut-bg-elevated)] px-6 py-8 text-center text-sm text-[var(--klaut-text-muted)] transition-colors hover:border-[var(--klaut-teal-600)] hover:bg-[var(--klaut-teal-50)] hover:text-[var(--klaut-teal-900)]"
       >
         <span className="block text-base font-medium text-[var(--klaut-text)]">Beleg hochladen</span>
         Klick zum Test-Upload — Jahr {taxYear}
       </button>
 
       {clarifications > 0 && (
-        <Card data-testid="clarify-card" className="mb-4 border-amber-200 bg-amber-50">
+        <Card
+          data-testid="clarify-card"
+          className="mb-4 border-[var(--klaut-warning-border)] bg-[var(--klaut-warning-bg)]"
+        >
           <CardHeader>
             <CardTitle>Rückfrage vom Agent</CardTitle>
             <CardDescription>

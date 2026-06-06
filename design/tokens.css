@@ -1,8 +1,10 @@
 /**
- * klaut.pro design tokens — synced from Majico staging.
- * Source: get_design_tokens / get_guidelines via MCP REST API.
+ * klaut.pro design tokens — Majico staging palette + portal extensions.
+ * Canonical source: Majico project 356e7acc-633d-4029-96a0-98e8a75fc3e5
+ * Accent #0d7377 (teal) — not Majico orange.
  */
 :root {
+  /* Majico-mapped semantic tokens */
   --klaut-bg: #f8fafc;
   --klaut-bg-elevated: #ffffff;
   --klaut-bg-muted: #f1f5f9;
@@ -12,24 +14,92 @@
   --klaut-text-on-dark: #f8fafc;
   --klaut-text-on-dark-muted: #94a3b8;
   --klaut-border: #e2e8f0;
+  --klaut-border-strong: #cbd5e1;
   --klaut-primary: #0d7377;
   --klaut-primary-hover: #0a4f52;
   --klaut-primary-on: #ffffff;
   --klaut-primary-subtle: color-mix(in oklch, #0d7377 12%, #f8fafc);
   --klaut-ring: #0d7377;
-  --klaut-font-heading: "Inter", system-ui, sans-serif;
-  --klaut-font-body: "Inter", system-ui, sans-serif;
+
+  /* Teal scale (brand accent family) */
+  --klaut-teal-950: #042f2f;
+  --klaut-teal-900: #0a4f52;
+  --klaut-teal-800: #0d7377;
+  --klaut-teal-700: #0f8a8f;
+  --klaut-teal-600: #14a3a8;
+  --klaut-teal-500: #2bb8bd;
+  --klaut-teal-100: #ccfbf1;
+  --klaut-teal-50: #f0fdfa;
+
+  /* Slate neutrals */
+  --klaut-slate-950: #020617;
+  --klaut-slate-900: #0f172a;
+  --klaut-slate-800: #1e293b;
+  --klaut-slate-700: #334155;
+  --klaut-slate-600: #475569;
+  --klaut-slate-500: #64748b;
+  --klaut-slate-400: #94a3b8;
+  --klaut-slate-300: #cbd5e1;
+  --klaut-slate-200: #e2e8f0;
+  --klaut-slate-100: #f1f5f9;
+  --klaut-slate-50: #f8fafc;
+
+  /* Trust / secrets surfaces */
+  --klaut-trust-bg: #f0fdfa;
+  --klaut-trust-border: #99f6e4;
+
+  /* Agent status (Books module) */
+  --klaut-agent-idle: var(--klaut-slate-500);
+  --klaut-agent-running: #2563eb;
+  --klaut-agent-clarify: #d97706;
+  --klaut-agent-done: #059669;
+  --klaut-agent-error: #dc2626;
+
+  /* Semantic status backgrounds */
+  --klaut-info-bg: #eff6ff;
+  --klaut-info-border: #bfdbfe;
+  --klaut-info-text: #1e3a8a;
+  --klaut-success-bg: #ecfdf5;
+  --klaut-success-border: #a7f3d0;
+  --klaut-success-text: #065f46;
+  --klaut-warning-bg: #fffbeb;
+  --klaut-warning-border: #fde68a;
+  --klaut-warning-text: #92400e;
+
+  /* Typography */
+  --klaut-font-heading: var(--font-inter), "Inter", system-ui, sans-serif;
+  --klaut-font-body: var(--font-inter), "Inter", system-ui, sans-serif;
+  --klaut-font-sans: var(--klaut-font-body);
+
+  /* Radius & elevation */
+  --klaut-radius-sm: 0.375rem;
+  --klaut-radius-md: 0.5rem;
+  --klaut-radius-lg: 0.75rem;
+  --klaut-radius-xl: 1rem;
+  --klaut-shadow-sm: 0 1px 2px rgb(15 23 42 / 0.05);
+  --klaut-shadow-md: 0 4px 12px rgb(15 23 42 / 0.08);
+  --klaut-shadow-sidebar: 4px 0 24px rgb(2 6 23 / 0.12);
+
+  /* Layout */
+  --klaut-sidebar-width: 15rem;
+  --klaut-content-max: 48rem;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --klaut-bg: #0f172a;
+    --klaut-bg-elevated: #1e293b;
     --klaut-bg-muted: #1e293b;
     --klaut-text: #f8fafc;
     --klaut-text-muted: #94a3b8;
     --klaut-border: #334155;
+    --klaut-border-strong: #475569;
     --klaut-primary: #14a3a8;
     --klaut-primary-hover: #2bb8bd;
     --klaut-primary-on: #0f172a;
+    --klaut-primary-subtle: color-mix(in oklch, #14a3a8 18%, #0f172a);
+    --klaut-ring: #14a3a8;
+    --klaut-trust-bg: color-mix(in oklch, #14a3a8 12%, #0f172a);
+    --klaut-trust-border: #0f766e;
   }
 }
