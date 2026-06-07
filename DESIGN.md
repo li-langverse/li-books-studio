@@ -70,14 +70,9 @@ User bubbles: `--klaut-teal-50`. Agent bubbles: `--klaut-slate-100`.
 - Exchange cards (Binance, OKX) with configured badge.
 - Dev JWT block clearly labeled “nur für lokale Entwicklung”.
 
-## Sync from Majico
+## Source of truth
 
-```bash
-# From klaut.pro repo:
-node scripts/sync-majico-brand.mjs
-```
-
-Updates `DESIGN.md` prose from Majico; preserves full `design/tokens.css` extensions.
+Brand and logos live in **Majico** (project `356e7acc-633d-4029-96a0-98e8a75fc3e5`). Update via Majico MCP: `get_design_md`, `get_design_tokens`, `get_logo_svg` — not klaut.pro scripts.
 
 ---
 
